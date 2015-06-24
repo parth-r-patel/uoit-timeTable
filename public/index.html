@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+	<head>
+		<title>TimeTable</title>
+		<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="bower_components/iron-input/iron-input.html">
+	</head>
+	<body class="fullbleed layout vertical">
+		<template is="dom-bind" id="app">
+			<input is="iron-input" bind-value="{{courseTitle}}">
+			<input is="iron-input" bind-value="{{CRN}}">
+			<input is="iron-input" bind-value="{{dayOfWeek1}}">
+			<input is="iron-input" bind-value="{{dayOfWeek2}}">
+			<input is="iron-input" bind-value="{{time1}}">
+			<input is="iron-input" bind-value="{{time2}}">
+			<span>{{courseTitle}}</span>
+		</template>
+	</body>
+</html>
