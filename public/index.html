@@ -3,16 +3,20 @@
 	<head>
 		<title>TimeTable</title>
 		<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-		<link rel="import" href="bower_components/iron-input/iron-input.html">
+		<link rel="import" href="bower_components/paper-input/paper-input.html">
 	</head>
 	<body class="fullbleed layout vertical">
 		<template is="dom-bind" id="app">
-			<input is="iron-input" bind-value="{{courseTitle}}">
-			<input is="iron-input" bind-value="{{CRN}}">
-			<input is="iron-input" bind-value="{{dayOfWeek1}}">
-			<input is="iron-input" bind-value="{{dayOfWeek2}}">
-			<input is="iron-input" bind-value="{{time1}}">
-			<input is="iron-input" bind-value="{{time2}}">
+			<paper-input-container auto-validate>
+				<label>Course Title</label>
+				<input is="iron-input" pattern="[a-zA-Z]*" bind-value="{{courseTitle}}"></input>
+				<paper-input-error>Should be letters only!</paper-input-error>
+			</paper-input-container>
+			<paper-input label ="" bind-value="{{CRN}}"></paper-input>
+			<paper-input label ="" bind-value="{{dayOfWeek1}}"></paper-input>
+			<paper-input label ="" bind-value="{{dayOfWeek2}}"></paper-input>
+			<paper-input label ="" bind-value="{{time1}}"></paper-input>
+			<paper-input label ="" bind-value="{{time2}}"></paper-input>
 			<span>{{courseTitle}}</span>
 		</template>
 	</body>
