@@ -1,0 +1,54 @@
+<link rel="import" href="bower_components/iron-input/iron-input.html">
+<link rel="import" href="courseCodeValidator.html">
+<dom-module id="course-code">
+  <style>
+    :host {
+      display: inline-block;
+    }
+    input[is="iron-input"] {
+      font: inherit;
+      outline: none;
+      box-shadow: none;
+      border: none;
+      width: auto;
+    }
+  </style>
+  <template>
+    <course-code-validator></course-code-validator>
+    <input is="iron-input" maxlength="4" bind-value="{{facultyCode}}" size="4" aria-label="Four letter faculty Code" placeholder="MATH">
+    <span style="margin-right: 5px;">-</span>
+    <input is="iron-input" maxlength="4" bind-value="{{courseNum}}" size="4" aria-label="Four digit course Number" placeholder="1850">
+  </template>
+</dom-module>
+<script>
+  (function() {
+    Polymer({
+      is: 'course-code',
+      behaviors: [
+        Polymer.IronValidatableBehavior
+      ],
+      properties: {
+        value: {
+          notify: true,
+          type: String
+        },
+        facultyCode: {
+          type: String
+        },
+        courseNum: {
+          type: String
+        },
+        validator: {
+          type: String,
+          value: "course-code-validator"
+        }
+      },
+      observers: [
+        '_hyphenateValue(facultyCode, courseNum)'
+      ],
+      _hyphenateValue: function(facultyCode, courseNum) {
+        this.value = facultyCode + '-' + courseNum;
+      }
+    })
+  })();
+</script>

@@ -3,21 +3,19 @@
 	<head>
 		<title>TimeTable</title>
 		<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-		<link rel="import" href="bower_components/paper-input/paper-input.html">
+		<!--<link rel="import" href="bower_components/polymer/polymer.html">-->
+		<link rel="import" href="uoit-timetable-courseInfo.html">
 	</head>
 	<body class="fullbleed layout vertical">
 		<template is="dom-bind" id="app">
-			<paper-input-container auto-validate>
-				<label>Course Title</label>
-				<input is="iron-input" pattern="[a-zA-Z]*" bind-value="{{courseTitle}}"></input>
-				<paper-input-error>Should be letters only!</paper-input-error>
-			</paper-input-container>
-			<paper-input label ="" bind-value="{{CRN}}"></paper-input>
-			<paper-input label ="" bind-value="{{dayOfWeek1}}"></paper-input>
-			<paper-input label ="" bind-value="{{dayOfWeek2}}"></paper-input>
-			<paper-input label ="" bind-value="{{time1}}"></paper-input>
-			<paper-input label ="" bind-value="{{time2}}"></paper-input>
-			<span>{{courseTitle}}</span>
+			<course-info></course-info>
 		</template>
 	</body>
+	<script>
+		var dom = document.getElementById("app");
+		// dom.courseTitle = "test"
+		// document.addEventListener("dom-change", function (a) {
+			// console.log(a.target);
+		// });
+	</script>
 </html>

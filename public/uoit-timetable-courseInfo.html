@@ -1,0 +1,61 @@
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="courseCode.html">
+<dom-module id="course-info">
+	<style>
+		paper-icon-button::shadow {
+			--paper-icon-button-ink-color: blue;
+		}
+		paper-icon-button::shadow #icon{
+			color: blue;
+		}
+	</style>
+	<template id="courseInfo">
+		<paper-input-container always-float-label auto-validate>
+			<label>Course Title</label>
+			<input is="iron-input" pattern="[a-zA-Z]*" bind-value="{{courseTitle}}" placeholder="Linear Algebra for Engineers"></input>
+			<paper-input-error>Should be upper and lower case letters only!</paper-input-error>
+		</paper-input-container>
+		<paper-input-container always-float-label auto-validate attr-for-value="value">
+			<label>Course Code</label>-->
+			<course-code bind-value="{{courseCode}}" class="paper-input-input"></course-code>
+			<paper-input-error>Should be 4 letter faculty code followed by 4 digit course number!</paper-input-error>
+		</paper-input-container>
+		<paper-input-container always-float-label auto-validate>
+			<label>Session Number (CRN)</label>
+			<input is="iron-input" pattern="[0-9]*" maxlength="5" bind-value="{{crn}}" placeholder="40311"></input>
+			<paper-input-error>CRN are 5 digit numbers only!</paper-input-error>
+		</paper-input-container>
+		<paper-icon-button icon="send"></paper-icon-button>
+		<!--<paper-input label="" bind-value="{{dayOfWeek1}}"></paper-input>
+			<paper-input label ="" bind-value="{{dayOfWeek2}}"></paper-input>
+			<paper-input label ="" bind-value="{{time1}}"></paper-input>
+			<paper-input label ="" bind-value="{{time2}}"></paper-input>
+			<span>{{courseTitle}}</span>-->
+	</template>
+	<script>
+		(function() {
+			Polymer({
+				is: "course-info",
+				behaviours: [],
+				properties: {
+					courseTitle: {
+						type: String
+					},
+					courseCode: {
+						type: String
+					},
+					crn: {
+						type: Number
+					}
+				},
+				observers: [
+					'_valueChange(courseTitle, courseCode, crn)'
+				],
+				_valueChange: function(courseTitle, courseCode, crn) {
+				}
+			})
+		})();
+	</script>
+</dom-module>
