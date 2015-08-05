@@ -1,0 +1,82 @@
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+
+<dom-module id="p3-button-group">
+	<style>
+		.button-group {
+			margin-left: 5px;
+		}
+		paper-button:first-of-type {
+			border-radius: 3px 0 0 3px;
+		}
+		paper-button:last-of-type {
+			border-radius: 0 3px 3px 0;
+		}
+		paper-button::shadow {
+			margin-right: -5px;
+			margin-left: 0;
+			border-radius: 0;
+			background-color: royalblue;
+			color: white;
+			text-transform: none;
+			font-family: sans-serif;
+			border: 1px solid royalblue;
+		}
+		paper-button::shadow .keyboard-focus {
+			font-weight: normal;
+		}
+		paper-button.active {
+			color: royalblue;
+			background-color: transparent;
+			box-shadow: none;
+		}
+	</style>
+	<template>
+		<div class="button-group" id="buttonGroup">
+			<template is="dom-repeat" items="{{buttons}}" as="button">
+				<paper-button raised on-click="activate">{{button.label}}</paper-button>
+			</template>
+		</div>
+	</template>
+	<script>
+		(function() {
+			Polymer({
+				is: "p3-button-group",
+				behaviours: [],
+				properties: {
+					buttons: {
+						type: Object
+					},
+					lastActive: {
+						type: Number,
+						value: -1
+					},
+					value: {
+						type: Object,
+						notify: true
+					}
+				},
+				observers: [],
+				activate: function(evt) {
+					var newButton = evt.srcElement.parentElement;
+					var newButtonIndex = evt.model.index;
+					
+					if(this.lastActive >= 0) {
+						this.$$("#buttonGroup").children[this.lastActive].classList.remove("active");
+						this.$$("#buttonGroup").children[this.lastActive].children[1].setAttribute("elevation", 1);
+						newButton.classList.add("active");
+						newButton.children[1].setAttribute("elevation", 0);
+						this.lastActive = newButtonIndex;
+					}
+					else {
+						newButton.classList.add("active");
+						newButton.children[1].setAttribute("elevation", 0);
+						this.lastActive = newButtonIndex;
+					}
+					this.value = {index: newButtonIndex, label: evt.srcElement.innerHTML.trim()};
+				},
+				ready: function() {
+				}
+			})
+		})();
+	</script>
+</dom-module>

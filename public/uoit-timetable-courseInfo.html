@@ -2,6 +2,7 @@
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="courseCode.html">
+<link rel="import" href="p3-button-group.html">
 <dom-module id="course-info">
 	<style>
 		paper-icon-button::shadow {
@@ -14,12 +15,12 @@
 	<template id="courseInfo">
 		<paper-input-container always-float-label auto-validate>
 			<label>Course Title</label>
-			<input is="iron-input" pattern="[a-zA-Z]*" bind-value="{{courseTitle}}" placeholder="Linear Algebra for Engineers"></input>
-			<paper-input-error>Should be upper and lower case letters only!</paper-input-error>
+			<input is="iron-input" pattern="[a-zA-Z]+([' '][a-zA-Z]*)*" bind-value="{{courseTitle}}" placeholder="Linear Algebra for Engineers"></input>
+			<paper-input-error>Should be at least one word followed by any other words separated by spaces!</paper-input-error>
 		</paper-input-container>
 		<paper-input-container always-float-label auto-validate attr-for-value="value">
 			<label>Course Code</label>-->
-			<course-code bind-value="{{courseCode}}" class="paper-input-input"></course-code>
+			<course-code value="{{courseCode}}" class="paper-input-input"></course-code>
 			<paper-input-error>Should be 4 letter faculty code followed by 4 digit course number!</paper-input-error>
 		</paper-input-container>
 		<paper-input-container always-float-label auto-validate>
@@ -27,7 +28,11 @@
 			<input is="iron-input" pattern="[0-9]*" maxlength="5" bind-value="{{crn}}" placeholder="40311"></input>
 			<paper-input-error>CRN are 5 digit numbers only!</paper-input-error>
 		</paper-input-container>
-		<paper-icon-button icon="send"></paper-icon-button>
+		<!--<paper-input-container attr-for-value="selected">-->
+			<label>Day of Week</label>
+			<p3-button-group id="dayOfWeek" buttons="{{weekDay}}" value="{{weekDay1}}"></p3-button-group>
+		<!--</paper-input-container>-->
+		<paper-icon-button icon="send" on-click="submit"></paper-icon-button>
 		<!--<paper-input label="" bind-value="{{dayOfWeek1}}"></paper-input>
 			<paper-input label ="" bind-value="{{dayOfWeek2}}"></paper-input>
 			<paper-input label ="" bind-value="{{time1}}"></paper-input>
@@ -41,19 +46,45 @@
 				behaviours: [],
 				properties: {
 					courseTitle: {
-						type: String
+						type: String,
+						value: "Linear Algebra for Engineers"
 					},
 					courseCode: {
-						type: String
+						type: String,
+						value: "MATH-1850"
 					},
 					crn: {
-						type: Number
+						type: Number,
+						value: 40311
+					},
+					weekDay: {
+						type: Array,
+						value: function() {
+							return [
+								{label: "Monday"},
+								{label: "Tuesday"},
+								{label: "Wednesday"},
+								{label: "Thursday"},
+								{label: "Friday"},
+								{label: "Saturday"},
+								{label: "Sunday"}
+							]
+						}
+					},
+					weekDay1: {
+						type: Object,
+						value: {"index": -1, "label": "unselected"}
 					}
 				},
 				observers: [
-					'_valueChange(courseTitle, courseCode, crn)'
 				],
-				_valueChange: function(courseTitle, courseCode, crn) {
+				submit: function(submitEvt) {
+					console.log('ct: ' + this.courseTitle);
+					console.log('cc: ' + this.courseCode);
+					console.log('crn: ' + this.crn);
+					console.dir('wd1: ' + this.weekDay1.index);
+				},
+				ready: function() {
 				}
 			})
 		})();
