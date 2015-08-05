@@ -7,20 +7,22 @@
 		}
 		paper-button:first-of-type {
 			border-radius: 3px 0 0 3px;
-			border-left: none;
 		}
 		paper-button:last-of-type {
 			border-radius: 0 3px 3px 0;
 		}
+		paper-button:last-of-type::after {
+			display: none;
+		}
 		paper-button::shadow {
-			margin-right: -5px;
+			margin-right: -3px;
 			margin-left: 0;
 			border-radius: 0;
 			background-color: royalblue;
 			color: white;
 			text-transform: none;
 			font-family: sans-serif;
-			border-left: 1px solid white;
+			border: 2px solid royalblue;
 		}
 		paper-button::shadow .keyboard-focus {
 			font-weight: normal;
@@ -34,7 +36,7 @@
 	<template>
 		<div class="button-group" id="buttonGroup">
 			<template is="dom-repeat" items="{{buttons}}" as="button">
-				<paper-button id="{{computeId(index)}}" raised noink on-click="select">{{button.label}}</paper-button>
+				<paper-button id="{{computeId(index)}}" on-click="select">{{button.label}}</paper-button>
 			</template>
 		</div>
 	</template>
