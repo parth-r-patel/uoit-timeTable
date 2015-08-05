@@ -7,6 +7,7 @@
 		}
 		paper-button:first-of-type {
 			border-radius: 3px 0 0 3px;
+			border-left: none;
 		}
 		paper-button:last-of-type {
 			border-radius: 0 3px 3px 0;
@@ -19,21 +20,21 @@
 			color: white;
 			text-transform: none;
 			font-family: sans-serif;
-			border: 1px solid royalblue;
+			border-left: 1px solid white;
 		}
 		paper-button::shadow .keyboard-focus {
 			font-weight: normal;
 		}
-		paper-button.active {
+		paper-button[active] {
 			color: royalblue;
-			background-color: transparent;
+			background-color: white;
 			box-shadow: none;
 		}
 	</style>
 	<template>
 		<div class="button-group" id="buttonGroup">
 			<template is="dom-repeat" items="{{buttons}}" as="button">
-				<paper-button raised on-click="activate">{{button.label}}</paper-button>
+				<paper-button id="{{computeId(index)}}" raised noink on-click="select">{{button.label}}</paper-button>
 			</template>
 		</div>
 	</template>
@@ -41,12 +42,11 @@
 		(function() {
 			Polymer({
 				is: "p3-button-group",
-				behaviours: [],
 				properties: {
 					buttons: {
 						type: Object
 					},
-					lastActive: {
+					lastSelected: {
 						type: Number,
 						value: -1
 					},
@@ -55,22 +55,21 @@
 						notify: true
 					}
 				},
-				observers: [],
-				activate: function(evt) {
+				computeId: function(index) {
+					return "btn" + index;
+				},
+				select: function(evt) {
 					var newButton = evt.srcElement.parentElement;
 					var newButtonIndex = evt.model.index;
-					
-					if(this.lastActive >= 0) {
-						this.$$("#buttonGroup").children[this.lastActive].classList.remove("active");
-						this.$$("#buttonGroup").children[this.lastActive].children[1].setAttribute("elevation", 1);
-						newButton.classList.add("active");
-						newButton.children[1].setAttribute("elevation", 0);
-						this.lastActive = newButtonIndex;
+
+					if(this.lastSelected >= 0) {
+						this.$$("#buttonGroup").children[this.lastSelected].removeAttribute("active");
+						newButton.setAttribute("active", true);
+						this.lastSelected = newButtonIndex;
 					}
 					else {
-						newButton.classList.add("active");
-						newButton.children[1].setAttribute("elevation", 0);
-						this.lastActive = newButtonIndex;
+						newButton.setAttribute("active", true);
+						this.lastSelected = newButtonIndex;
 					}
 					this.value = {index: newButtonIndex, label: evt.srcElement.innerHTML.trim()};
 				},

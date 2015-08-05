@@ -28,22 +28,19 @@
 			<input is="iron-input" pattern="[0-9]*" maxlength="5" bind-value="{{crn}}" placeholder="40311"></input>
 			<paper-input-error>CRN are 5 digit numbers only!</paper-input-error>
 		</paper-input-container>
-		<!--<paper-input-container attr-for-value="selected">-->
-			<label>Day of Week</label>
-			<p3-button-group id="dayOfWeek" buttons="{{weekDay}}" value="{{weekDay1}}"></p3-button-group>
-		<!--</paper-input-container>-->
+		<label>Day of Week</label>
+		<p3-button-group id="dayOfWeek" buttons="{{weekDay}}" value="{{weekDay1}}"></p3-button-group>
 		<paper-icon-button icon="send" on-click="submit"></paper-icon-button>
-		<!--<paper-input label="" bind-value="{{dayOfWeek1}}"></paper-input>
+		<!-- <paper-input label="" bind-value="{{dayOfWeek1}}"></paper-input>
 			<paper-input label ="" bind-value="{{dayOfWeek2}}"></paper-input>
 			<paper-input label ="" bind-value="{{time1}}"></paper-input>
-			<paper-input label ="" bind-value="{{time2}}"></paper-input>
-			<span>{{courseTitle}}</span>-->
+			<paper-input label ="" bind-value="{{time2}}"></paper-input> -->
 	</template>
 	<script>
 		(function() {
 			Polymer({
 				is: "course-info",
-				behaviours: [],
+				behaviors: [],
 				properties: {
 					courseTitle: {
 						type: String,
@@ -82,7 +79,7 @@
 					console.log('ct: ' + this.courseTitle);
 					console.log('cc: ' + this.courseCode);
 					console.log('crn: ' + this.crn);
-					console.dir('wd1: ' + this.weekDay1.index);
+					console.dir('wd1: ' + this.weekDay1.label);
 				},
 				ready: function() {
 				}
