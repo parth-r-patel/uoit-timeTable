@@ -16,11 +16,13 @@
 			display: none;
 		}
 		.button-group::shadow {
-			margin-right: -3px;
+			margin-right: -1px;
 			margin-left: 0;
+			margin-top: 5px;
+			margin-bottom: 5px;
 			border-radius: 0;
-			background-color: royalblue;
-			color: white;
+			background-color: var(--p3-button-group-primary-colour, royalblue);
+			color: var(--p3-button-group-secondary-colour, white);
 			text-transform: none;
 			font-family: sans-serif;
 		}
@@ -28,8 +30,8 @@
 			font-weight: normal;
 		}
 		.button-group[active], .button-group[focus] {
-			color: royalblue;
-			background-color: white;
+			color: var(--p3-button-group-primary-colour, royalblue);
+			background-color: var(--p3-button-group-secondary-colour, white);
 			box-shadow: none;
 		}
 	</style>

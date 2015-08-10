@@ -5,6 +5,10 @@
 <link rel="import" href="p3-button-group.html">
 <dom-module id="course-info">
 	<style>
+		.weekDay1 {
+			--p3-button-group-primary-colour: navy;
+			--p3-button-group-secondary-colour: white;
+		}
 		paper-icon-button::shadow {
 			--paper-icon-button-ink-color: blue;
 		}
@@ -29,12 +33,12 @@
 			<paper-input-error>CRN are 5 digit numbers only!</paper-input-error>
 		</paper-input-container>
 		<label>Day of Week</label>
-		<p3-button-group id="dayOfWeek" buttons="{{weekDay}}" value="{{weekDay1}}"></p3-button-group>
+		<p3-button-group id="dayOfWeek" class="weekDay1" buttons="{{daysOfWeek}}" value="{{weekDay1}}"></p3-button-group>
+		<p3-button-group id="dayOfWeek" class="weekDay2" buttons="{{daysOfWeek}}" value="{{weekDay2}}"></p3-button-group>
 		<paper-icon-button icon="send" on-click="submit"></paper-icon-button>
-		<!-- <paper-input label="" bind-value="{{dayOfWeek1}}"></paper-input>
-			<paper-input label ="" bind-value="{{dayOfWeek2}}"></paper-input>
-			<paper-input label ="" bind-value="{{time1}}"></paper-input>
-			<paper-input label ="" bind-value="{{time2}}"></paper-input> -->
+			<!-- <paper-input label ="" bind-value="{{dayOfWeek2}}"></paper-input> -->
+			<!-- <paper-input label ="" bind-value="{{time1}}"></paper-input> -->
+			<!-- <paper-input label ="" bind-value="{{time2}}"></paper-input> -->
 	</template>
 	<script>
 		(function() {
@@ -54,7 +58,7 @@
 						type: Number,
 						value: 40311
 					},
-					weekDay: {
+					daysOfWeek: {
 						type: Array,
 						value: function() {
 							return [
@@ -71,6 +75,10 @@
 					weekDay1: {
 						type: Object,
 						value: {"index": -1, "label": "unselected"}
+					},
+					weekDay2: {
+						type: Object,
+						value: {"index": -1, "label": "unselected"}
 					}
 				},
 				observers: [
@@ -80,6 +88,7 @@
 					console.log('cc: ' + this.courseCode);
 					console.log('crn: ' + this.crn);
 					console.dir('wd1: ' + this.weekDay1.label);
+					console.dir('wd2: ' + this.weekDay2.label);
 				},
 				ready: function() {
 				}
