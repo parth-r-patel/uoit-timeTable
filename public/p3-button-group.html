@@ -2,19 +2,20 @@
 
 <dom-module id="p3-button-group">
 	<style>
-		.button-group {
+		.button-group-container {
 			margin-left: 5px;
+			display: flex;
 		}
-		paper-button:first-of-type {
+		.button-group:first-of-type {
 			border-radius: 3px 0 0 3px;
 		}
-		paper-button:last-of-type {
+		.button-group:last-of-type {
 			border-radius: 0 3px 3px 0;
 		}
-		paper-button:last-of-type::after {
+		.button-group:last-of-type::after {
 			display: none;
 		}
-		paper-button::shadow {
+		.button-group::shadow {
 			margin-right: -3px;
 			margin-left: 0;
 			border-radius: 0;
@@ -22,21 +23,20 @@
 			color: white;
 			text-transform: none;
 			font-family: sans-serif;
-			border: 2px solid royalblue;
 		}
-		paper-button::shadow .keyboard-focus {
+		.button-group::shadow .keyboard-focus {
 			font-weight: normal;
 		}
-		paper-button[active] {
+		.button-group[active], .button-group[focus] {
 			color: royalblue;
 			background-color: white;
 			box-shadow: none;
 		}
 	</style>
 	<template>
-		<div class="button-group" id="buttonGroup">
+		<div class="button-group-container" id="buttonGroup">
 			<template is="dom-repeat" items="{{buttons}}" as="button">
-				<paper-button id="{{computeId(index)}}" on-click="select">{{button.label}}</paper-button>
+				<paper-button id="{{computeId(index)}}" class="button-group" raised on-click="select">{{button.label}}</paper-button>
 			</template>
 		</div>
 	</template>
@@ -61,11 +61,12 @@
 					return "btn" + index;
 				},
 				select: function(evt) {
-					var newButton = evt.srcElement.parentElement;
 					var newButtonIndex = evt.model.index;
+					var newButton = Polymer.dom(this.$.buttonGroup).querySelectorAll("paper-button")[newButtonIndex];
+					var oldButton = Polymer.dom(this.$.buttonGroup).querySelectorAll("paper-button")[this.lastSelected];
 
 					if(this.lastSelected >= 0) {
-						this.$$("#buttonGroup").children[this.lastSelected].removeAttribute("active");
+						oldButton.removeAttribute("active");
 						newButton.setAttribute("active", true);
 						this.lastSelected = newButtonIndex;
 					}
