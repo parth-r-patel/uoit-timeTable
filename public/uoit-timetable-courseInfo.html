@@ -19,7 +19,7 @@
 	<template id="courseInfo">
 		<paper-input-container always-float-label auto-validate>
 			<label>Course Title</label>
-			<input is="iron-input" pattern="[a-zA-Z]+([' '][a-zA-Z]*)*" bind-value="{{courseTitle}}" placeholder="Linear Algebra for Engineers"></input>
+			<input is="iron-input" bind-value="{{courseTitle}}" placeholder="Linear Algebra for Engineers"></input>
 			<paper-input-error>Should be at least one word followed by any other words separated by spaces!</paper-input-error>
 		</paper-input-container>
 		<paper-input-container always-float-label auto-validate attr-for-value="value">
@@ -29,7 +29,7 @@
 		</paper-input-container>
 		<paper-input-container always-float-label auto-validate>
 			<label>Session Number (CRN)</label>
-			<input is="iron-input" pattern="[0-9]*" maxlength="5" bind-value="{{crn}}" placeholder="40311"></input>
+			<input is="iron-input" pattern="[0-9]*" minlength="5" maxlength="5" bind-value="{{crn}}" placeholder="40311"></input>
 			<paper-input-error>CRN are 5 digit numbers only!</paper-input-error>
 		</paper-input-container>
 		<label>Day of Week</label>
@@ -48,15 +48,14 @@
 				properties: {
 					courseTitle: {
 						type: String,
-						value: "Linear Algebra for Engineers"
+						value: ""
 					},
 					courseCode: {
 						type: String,
-						value: "MATH-1850"
+						value: ""
 					},
 					crn: {
-						type: Number,
-						value: 40311
+						type: Number
 					},
 					daysOfWeek: {
 						type: Array,
