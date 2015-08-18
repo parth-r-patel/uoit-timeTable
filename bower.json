@@ -1,19 +1,20 @@
 {
-	"name": "TimeTable",
-	"version": "0.0.0",
-	"authors": [
-		"placeholder"
-	],
-	"dependencies": {
-		"iron-elements": "PolymerElements/iron-elements#~1.0.0",
-		"paper-elements": "PolymerElements/paper-elements#~1.0.0"
-	},
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	]
+  "name": "TimeTable",
+  "version": "0.0.0",
+  "authors": [
+    "placeholder"
+  ],
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#~1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.0",
+    "paper-time-picker": "~1.0.3"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
