@@ -1,19 +1,31 @@
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-time-picker/paper-time-picker.html">
+<link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="courseCode.html">
-<link rel="import" href="p3-button-group.html">
 <dom-module id="course-info">
 	<style>
-		.ironPage {
+		:host {
+			@apply(--layout-vertical);
+		}
+		.timetable-text-input {
+			margin-left: 5px;
+		}
+		.iron-page {
 			margin-left: 5px;
 		}
 		.weekDay1 {
 			--p3-button-group-primary-colour: navy;
 			--p3-button-group-secondary-colour: white;
+		}
+		.day-selector {
+			width: 350px;
+			margin: 0px 5px 5px 5px;
+			font-size: 18px;
+			font-family: sans-serif;
 		}
 		paper-icon-button::shadow {
 			--paper-icon-button-ink-color: blue;
@@ -23,42 +35,41 @@
 		}
 	</style>
 	<template id="courseInfo">
-		<paper-input-container always-float-label auto-validate>
+		<paper-input-container class="timetable-text-input" always-float-label auto-validate>
 			<label>Course Title</label>
 			<input is="iron-input" bind-value="{{courseTitle}}" placeholder="Linear Algebra for Engineers"></input>
 			<paper-input-error>Should be at least one word followed by any other words separated by spaces!</paper-input-error>
 		</paper-input-container>
-		<paper-input-container always-float-label auto-validate attr-for-value="value">
+		<paper-input-container class="timetable-text-input" always-float-label auto-validate attr-for-value="value">
 			<label>Course Code</label>-->
 			<course-code value="{{courseCode}}" class="paper-input-input"></course-code>
 			<paper-input-error>Should be 4 letter faculty code followed by 4 digit course number!</paper-input-error>
 		</paper-input-container>
-		<paper-input-container always-float-label auto-validate>
+		<paper-input-container class="timetable-text-input" always-float-label auto-validate>
 			<label>Session Number (CRN)</label>
 			<input is="iron-input" pattern="[0-9]*" minlength="5" maxlength="5" bind-value="{{crn}}" placeholder="40311"></input>
 			<paper-input-error>CRN are 5 digit numbers only!</paper-input-error>
 		</paper-input-container>
-		<iron-pages selected="{{classDay}}">
-			<div class="ironPage">
-				<label>First day of class</label>
+		<paper-tabs class="day-selector" selected="{{classDays}}">
+			<paper-tab>Day 1</paper-tab>
+			<paper-tab>Day 2</paper-tab>
+		</paper-tabs>
+		<iron-pages selected="{{classDays}}">
+			<div class="iron-page">
 				<p3-button-group id="dayOfWeek" class="weekDay1" buttons="{{daysOfWeek}}" value="{{weekDay1}}"></p3-button-group>
 				<paper-time-picker hour="{{time1.hour}}" minute="{{time1.minute}}"></paper-time-picker>
 			</div>
-			<div class="ironPage">
+			<div class="iron-page">
 				<p3-button-group id="dayOfWeek" class="weekDay2" buttons="{{daysOfWeek}}" value="{{weekDay2}}"></p3-button-group>
 				<paper-time-picker hour="{{time2.hour}}" minute="{{time2.minute}}"></paper-time-picker>
 			</div>
 		</iron-pages>
-		<paper-tabs selected="{{classDay}}" noink no-slide>
-			<paper-tab>Day 1 of Class</paper-tab>
-			<paper-tab>Day 2 of Class</paper-tab>
-		</paper-tabs>
-		<label>Day of Week</label>
+		<!-- <label>Day of Week</label> -->
 		<!-- <paper-input label="" bind-value="{{class_location}}" -->
 		<!-- <paper-input label="" bind-value="{{class_type}}" -->
 		<!-- <paper-input label ="" bind-value="{{time1}}"></paper-input> -->
 		<!-- <paper-input label ="" bind-value="{{time2}}"></paper-input> -->
-		<paper-icon-button icon="send" on-click="submit"></paper-icon-button>
+		<!-- <paper-icon-button icon="send" on-click="submit"></paper-icon-button> -->
 	</template>
 	<script>
 		(function() {
@@ -91,7 +102,7 @@
 							]
 						}
 					},
-					classDay: {
+					classDays: {
 						type: Number,
 						value: 0
 					},
@@ -105,11 +116,11 @@
 					},
 					time1: {
 						type: Object,
-						value: {"hour": 8, "minute": 10}
+						value: {"hour": 0, "minute": 00}
 					},
 					time2: {
 						type: Object,
-						value: {"hour": 8, "minute": 10}
+						value: {"hour": 0, "minute": 0}
 					}
 				},
 				observers: [
@@ -120,6 +131,7 @@
 					console.log('crn: ' + this.crn);
 					console.dir('wd1: ' + this.weekDay1.label);
 					console.dir('wd2: ' + this.weekDay2.label);
+					console.dir('t1: ' + this.time1.hour);
 				},
 				ready: function() {
 				}
