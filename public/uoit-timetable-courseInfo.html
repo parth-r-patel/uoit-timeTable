@@ -4,7 +4,7 @@
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="bower_components/paper-time-picker/paper-time-picker.html">
-<link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="courseCode.html">
 <dom-module id="course-info">
 	<style>
@@ -22,10 +22,16 @@
 			--p3-button-group-secondary-colour: white;
 		}
 		.day-selector {
-			width: 350px;
+			width: 440px;
 			margin: 0px 5px 5px 5px;
 			font-size: 18px;
 			font-family: sans-serif;
+			--paper-tabs-selection-bar-color: var(--paper-teal-a400);
+			background-color: var(--paper-indigo-600);
+			color: white;
+		}
+		.day-selector::shadow #selectionBar {
+			height: 4px;
 		}
 		paper-icon-button::shadow {
 			--paper-icon-button-ink-color: blue;
@@ -50,18 +56,19 @@
 			<input is="iron-input" pattern="[0-9]*" minlength="5" maxlength="5" bind-value="{{crn}}" placeholder="40311"></input>
 			<paper-input-error>CRN are 5 digit numbers only!</paper-input-error>
 		</paper-input-container>
-		<paper-tabs class="day-selector" selected="{{classDays}}">
+		<paper-tabs class="day-selector" noink selected="{{classDays}}">
 			<paper-tab>Day 1</paper-tab>
 			<paper-tab>Day 2</paper-tab>
 		</paper-tabs>
 		<iron-pages selected="{{classDays}}">
 			<div class="iron-page">
+				<paper-radio-group></paper-radio-group>
 				<p3-button-group id="dayOfWeek" class="weekDay1" buttons="{{daysOfWeek}}" value="{{weekDay1}}"></p3-button-group>
-				<paper-time-picker hour="{{time1.hour}}" minute="{{time1.minute}}"></paper-time-picker>
+				<paper-time-picker force-narrow hour="{{time1.hour}}" minute="{{time1.minute}}"></paper-time-picker>
 			</div>
 			<div class="iron-page">
 				<p3-button-group id="dayOfWeek" class="weekDay2" buttons="{{daysOfWeek}}" value="{{weekDay2}}"></p3-button-group>
-				<paper-time-picker hour="{{time2.hour}}" minute="{{time2.minute}}"></paper-time-picker>
+				<paper-time-picker force-narrow hour="{{time2.hour}}" minute="{{time2.minute}}"></paper-time-picker>
 			</div>
 		</iron-pages>
 		<!-- <label>Day of Week</label> -->
