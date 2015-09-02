@@ -4,8 +4,8 @@
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="bower_components/paper-time-picker/paper-time-picker.html">
-<link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="courseCode.html">
+<link rel="import" href="p3-weekday-selector.html">
 <dom-module id="course-info">
 	<style>
 		:host {
@@ -32,6 +32,11 @@
 		}
 		.day-selector::shadow #selectionBar {
 			height: 4px;
+		}
+		.weekday-selector {
+			position: absolute;
+			float: right;
+			left: 275px;
 		}
 		paper-icon-button::shadow {
 			--paper-icon-button-ink-color: blue;
@@ -62,21 +67,17 @@
 		</paper-tabs>
 		<iron-pages selected="{{classDays}}">
 			<div class="iron-page">
-				<paper-radio-group></paper-radio-group>
-				<p3-button-group id="dayOfWeek" class="weekDay1" buttons="{{daysOfWeek}}" value="{{weekDay1}}"></p3-button-group>
+				<p3-weekday-selector class="weekday-selector" weekday="{{weekDay1}}"></p3-weekday-selector>
 				<paper-time-picker force-narrow hour="{{time1.hour}}" minute="{{time1.minute}}"></paper-time-picker>
 			</div>
 			<div class="iron-page">
-				<p3-button-group id="dayOfWeek" class="weekDay2" buttons="{{daysOfWeek}}" value="{{weekDay2}}"></p3-button-group>
+				<p3-weekday-selector class="weekday-selector" weekday="{{weekDay2}}"></p3-weekday-selector>
 				<paper-time-picker force-narrow hour="{{time2.hour}}" minute="{{time2.minute}}"></paper-time-picker>
 			</div>
 		</iron-pages>
-		<!-- <label>Day of Week</label> -->
 		<!-- <paper-input label="" bind-value="{{class_location}}" -->
 		<!-- <paper-input label="" bind-value="{{class_type}}" -->
-		<!-- <paper-input label ="" bind-value="{{time1}}"></paper-input> -->
-		<!-- <paper-input label ="" bind-value="{{time2}}"></paper-input> -->
-		<!-- <paper-icon-button icon="send" on-click="submit"></paper-icon-button> -->
+		<paper-icon-button icon="send" on-click="submit"></paper-icon-button>
 	</template>
 	<script>
 		(function() {
@@ -114,12 +115,12 @@
 						value: 0
 					},
 					weekDay1: {
-						type: Object,
-						value: {"index": -1, "label": "unselected"}
+						type: String,
+						value: ""
 					},
 					weekDay2: {
-						type: Object,
-						value: {"index": -1, "label": "unselected"}
+						type: String,
+						value: ""
 					},
 					time1: {
 						type: Object,
@@ -136,8 +137,8 @@
 					console.log('ct: ' + this.courseTitle);
 					console.log('cc: ' + this.courseCode);
 					console.log('crn: ' + this.crn);
-					console.dir('wd1: ' + this.weekDay1.label);
-					console.dir('wd2: ' + this.weekDay2.label);
+					console.dir('wd1: ' + this.weekDay1);
+					console.dir('wd2: ' + this.weekDay2);
 					console.dir('t1: ' + this.time1.hour);
 				},
 				ready: function() {
