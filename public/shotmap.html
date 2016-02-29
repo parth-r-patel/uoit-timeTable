@@ -1,0 +1,70 @@
+<link rel="import" href="bower_components/iron-image/iron-image.html">
+<link rel="import" href="bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="p3-shot-map">
+    <style>
+        :host {
+            display: block;
+            position: relative;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        .shotMap.image iron-icon {
+            position: absolute;
+            cursor: none;
+        }
+        .shotMap.image iron-image {
+            width: 440px;
+            height: 280px;
+            margin: 5px;
+            cursor: crosshair;
+        }
+    </style>
+    <template>
+        <div class="shotMap image" id="main">
+            <iron-image preload fade id="shot-map-image" src="redMap.jpg" on-track="handleShot"></iron-image>
+            <iron-icon icon="clear" class="hidden" left="50px" id="missed"></iron-icon>
+            <iron-icon icon="check" class="hidden" id="made"></iron-icon>
+        </div>
+    </template>
+    <script>
+        (function() {
+			Polymer({
+				is: "p3-shot-map",
+				properties: {
+					shots: {
+                        type: Array,
+                        value: function() {
+                            return new Array();
+                        }
+                    }
+				},
+                handleShot: function(evt) {
+                    switch(evt.detail.state) {
+                        case 'start':
+                            this.$.missed.style.left = new String(evt.detail.x - 34) + "px";
+                            this.$.missed.style.top = new String(evt.detail.y - 10) + "px";
+                            this.$.made.style.left = new String(evt.detail.x + 10) + "px";
+                            this.$.made.style.top = new String(evt.detail.y - 10) + "px";
+                            this.$.missed.classList.remove("hidden");
+                            this.$.made.classList.remove("hidden");
+                            break;
+                        case 'track':
+                            this.$.missed.style.color = evt.detail.dx < 0 ? "red" : "black";
+                            this.$.made.style.color = evt.detail.dx > 0 ? "green" : "black";
+                            break;
+                        case 'end':
+                            this.$.missed.classList.add("hidden");
+                            this.$.made.classList.add("hidden");
+                            
+                            break;
+                    }
+                },
+				ready: function() {
+				}
+			})
+		})();
+    </script>
+</dom-module>
